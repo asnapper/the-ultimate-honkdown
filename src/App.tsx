@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import HonkDown from './components/HonkDown'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Item {
+    href: string
+    title: string
 }
 
-export default App;
+
+const valueSelector = (item: any) => item.href
+const labelSelector = (item: any) => item.title
+
+const App = () => {
+    const [ items, setItems ] = useState<Item[]>([
+        { href: 'http://bla.com/items/1', title: 'First Item' },
+        { href: 'http://bla.com/items/2', title: 'Second Item' },
+        { href: 'http://bla.com/items/3', title: 'Third Item' },
+        { href: 'http://bla.com/items/4', title: 'Fourth Item' },
+        { href: 'http://bla.com/items/5', title: 'Fifth Item' },
+        { href: 'http://bla.com/items/6', title: 'Sixt Item' },
+        { href: 'http://bla.com/items/7', title: 'Seventh Item' },
+        { href: 'http://bla.com/items/8', title: 'Eight Item' },
+    ])
+
+    const getMoreItems = () => {
+        setItems([...items,
+            { href: 'http://bla.com/items/' + items.length + 1, title: 'Item ' + 1 },
+            { href: 'http://bla.com/items/' + items.length + 2, title: 'Item ' + 2 },
+            { href: 'http://bla.com/items/' + items.length + 3, title: 'Item ' + 3 }
+        ])
+    }
+    
+    const [ value, setValue ] = useState<string>('http://bla.com/items/4')
+
+    return <div className="App" style={{ width: '400px' }}>
+        <HonkDown<Item>
+            items={items}
+            value={value}
+            labelSelector={labelSelector}
+            valueSelector={valueSelector}
+            onLoadMore={getMoreItems}
+            onChange={setValue}
+            searchable={true}
+        />
+    </div>
+}
+
+export default App
