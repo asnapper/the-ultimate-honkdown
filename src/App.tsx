@@ -23,11 +23,13 @@ const App = () => {
     ])
 
     const getMoreItems = () => {
-        setItems([...items,
-            { href: 'http://bla.com/items/' + (items.length + 1), title: 'Item ' + (items.length + 1) },
-            { href: 'http://bla.com/items/' + (items.length + 2), title: 'Item ' + (items.length + 2) },
-            { href: 'http://bla.com/items/' + (items.length + 3), title: 'Item ' + (items.length + 3) }
-        ])
+        if (items.length < 100) {
+            setItems([...items,
+                { href: 'http://bla.com/items/' + (items.length + 1), title: 'Item ' + (items.length + 1) },
+                { href: 'http://bla.com/items/' + (items.length + 2), title: 'Item ' + (items.length + 2) },
+                { href: 'http://bla.com/items/' + (items.length + 3), title: 'Item ' + (items.length + 3) }
+            ])
+        }
     }
     
     const [ value, setValue ] = useState<string>('http://bla.com/items/4')
