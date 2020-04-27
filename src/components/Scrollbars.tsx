@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 
 
@@ -23,12 +23,12 @@ export const Scrollbars = (props: ScrollbarProps & { children?: React.ReactNode 
     const rootRef = useRef<HTMLDivElement>(null)
     const contentRef = useRef<HTMLDivElement>(null)
 
-    const handleScroll = (event: Event) => {
-        const target = event.target as HTMLDivElement
+    const handleScroll = () => {
+        const target = rootRef.current as HTMLDivElement
         const clientHeight = contentRef.current?.clientHeight
-        const offset = clientHeight && clientHeight - (target.clientHeight + target.scrollTop)
+        const offset = clientHeight && clientHeight - (target?.clientHeight + target?.scrollTop)
 
-        if (offset === 0 && props.atBottom) {
+        if ((offset as number < 50) && props.atBottom) {
             props.atBottom()
         }
 
@@ -36,7 +36,10 @@ export const Scrollbars = (props: ScrollbarProps & { children?: React.ReactNode 
     }
 
     useEffect(() => {
+        handleScroll()
+    }, [props.children, handleScroll])
 
+    useEffect(() => {
         const current = rootRef.current
         
         current?.addEventListener('scroll', handleScroll)
@@ -45,7 +48,7 @@ export const Scrollbars = (props: ScrollbarProps & { children?: React.ReactNode 
             current?.removeEventListener('scroll', handleScroll)
         }
 
-    }, [rootRef])
+    })
 
     return <div className={classNames.root} ref={rootRef}>
         <div className={classNames.content} ref={contentRef}>
