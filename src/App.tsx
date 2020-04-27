@@ -24,9 +24,9 @@ const App = () => {
 
     const getMoreItems = () => {
         setItems([...items,
-            { href: 'http://bla.com/items/' + items.length + 1, title: 'Item ' + 1 },
-            { href: 'http://bla.com/items/' + items.length + 2, title: 'Item ' + 2 },
-            { href: 'http://bla.com/items/' + items.length + 3, title: 'Item ' + 3 }
+            { href: 'http://bla.com/items/' + (items.length + 1), title: 'Item ' + (items.length + 1) },
+            { href: 'http://bla.com/items/' + (items.length + 2), title: 'Item ' + (items.length + 2) },
+            { href: 'http://bla.com/items/' + (items.length + 3), title: 'Item ' + (items.length + 3) }
         ])
     }
     

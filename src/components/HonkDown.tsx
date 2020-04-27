@@ -74,7 +74,7 @@ export const HonkDown = <T extends object>(props: HonkDownProps<T>) => {
         {open && props.searchable && <div className={classNames.selectRow}>
             <input className={classNames.selectValue} type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
         </div>}
-        {open && <Scrollbars>
+        {open && <Scrollbars atBottom={() => props.onLoadMore && props.onLoadMore()}>
             {filteredItems.map(item => {
             return <div key={item.value} className={classNames.selectRow} onClick={() => handleSelect(item.value)}>
                 <div className={classNames.selectValue}>
